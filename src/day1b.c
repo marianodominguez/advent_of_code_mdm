@@ -9,8 +9,9 @@
 void record_calories(unsigned long a[], long x) {
     if (x<=a[2]) return;
     if (x>a[0]) {
-        a[1]=a[0];
         a[2]=a[1];
+        a[1]=a[0];
+
         a[0]=x;
         return;
     } 
@@ -19,7 +20,9 @@ void record_calories(unsigned long a[], long x) {
         a[1]=x;
         return;
     }
-    a[2]=x;
+    if (x>a[2]) {
+        a[2]=x;
+    }
     return;
 }
 
@@ -44,7 +47,8 @@ int main(void)
             record_calories(top_three, sum);
 
             elf++;
-            printf("elf %d, calories %lu\n",elf,sum);
+            //printf("elf %d, calories %lu\n",elf,sum);
+            printf("%lu , %lu, %lu \n",top_three[0],top_three[1],top_three[2] );
             sum=0;
         } else {
             sum=sum+atol(read);
@@ -55,7 +59,7 @@ int main(void)
         sum=sum+top_three[i];
     }
 
-    printf("last elf: %d, Max calories= %lu" , elf, sum);
+    printf("last elf: %d, \nMax calories= %lu" , elf, sum);
     cgetc();
     fclose(fd);
     return EXIT_SUCCESS;
