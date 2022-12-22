@@ -109,8 +109,6 @@ int main(void)
         printf("%c",crate[i][len-1]);
     }
     
-
-
     cgetc();
     return 0;
 }
