@@ -34,7 +34,7 @@ int read_data(void) {
     printf("Read data\n");
    
     while (byte!=EOF) {
-        byte=fgetc(fd);
+        byte=fscanf(fd,"");
         b=byte;
         //printf("\n%c,",byte);
         if(i<PKG_LEN) {
