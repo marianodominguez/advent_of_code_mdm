@@ -49,9 +49,6 @@ void sum_dirs(struct Directory *dir, long max) {
         sum=sum+dir->children[i]->size;
     }
     dir->size=sum;
-    if(sum<=max) {
-        filtered_sum+=sum;
-    }
     sum=0;
 }
 
@@ -142,10 +139,25 @@ int parse_command(char line[]) {
     return 0;
 }
 
+unsigned long get_min_dir(struct Directory *dir, unsigned long space_needed, unsigned long min) {
+    int i=0;
+    unsigned long partial_size=0;
+    if (dir->size<min && dir->size>=space_needed && dir->is_file==0) min=dir->size;
+    for (i = 0; i < dir->n_children; i++)
+    {
+        if(dir->size>=space_needed && dir->is_file==0) {
+            partial_size = get_min_dir(dir->children[i], space_needed, min);
+            if (partial_size < min)
+                min=partial_size;  
+        }   
+    }
+    return min;
+}
+
 int main(void)
 {
     FILE *fd;
-
+    unsigned long space_needed=0;
     fd=fopen("DATA.TXT","r");
     printf("Read data\n");
     while(fgets(line, MAX_CHAR, fd)!=NULL) {
@@ -154,7 +166,12 @@ int main(void)
     fclose(fd);
     sum_dirs(root_dir, 100000);
     print_dir(root_dir);
-    printf("filtered sum= %lu",filtered_sum);
+
+    space_needed=30000000-(70000000-root_dir->size);
+
+    filtered_sum = get_min_dir(root_dir, space_needed, root_dir->size);
+
+    printf("min dir= %lu",filtered_sum);
     cgetc();
     return 0;
 }
