@@ -44,7 +44,7 @@ void sum_dirs(struct Directory *dir, long max) {
     int i;
     printf("sum=%lu, %s\n", sum, dir->name);
     for(i=0; i<dir->n_children; i++) {
-        if (dir->children[i]->is_file==0) 
+        if (dir->children[i]->is_file==0)
             sum_dirs(dir->children[i], max);
         sum=sum+dir->children[i]->size;
     }
@@ -108,7 +108,7 @@ int parse_command(char line[]) {
         return 0;
     }
     if(strncmp(line, "$ cd ..",6)==0) {
-        if(pwd->parent!=NULL) 
+        if(pwd->parent!=NULL)
             pwd=pwd->parent;
         printf("cd ..-> %s\n", pwd->name);
         return 0;
