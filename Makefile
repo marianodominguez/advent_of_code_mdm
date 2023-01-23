@@ -6,13 +6,14 @@
 .ONESHELL:
 	export LC_CTYPE=C
 
+DAY = day10b
+DATA = data10.txt
+
 SYS ?= atarixl
 
 NULLDEV = /dev/null
 DEL = $(RM)
 RMDIR = $(RM) -r
-DAY = day10b
-DATA = data10.txt
 
 ifdef CC65_HOME
   AS = $(CC65_HOME)/bin/ca65

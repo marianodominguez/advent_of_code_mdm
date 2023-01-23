@@ -8,16 +8,7 @@
 FILE *fd;
 unsigned char line[MAX_CHAR];
 unsigned char screen[40][6];
-unsigned int cycle=1;
-int xreg=1;
-unsigned int xp=0,yp=0;
 
-void clock() {
-    xp=(cycle-1)%40;
-    yp=(unsigned int)(cycle/40);
-    if (abs(xreg-xp)<=1) screen[xp][yp]=1;
-    cycle++;
-}
 
 void parse_command(unsigned char *line) {
     unsigned char *cmd;
@@ -46,15 +37,6 @@ int main(void)
     }
     fclose(fd);
 
-    for (x=0;x<40;x++) {
-        for (y=0;y<6;y++)
-        if (screen[x][y]==1) {
-            cputsxy(x,y,"#");
-        }
-        else {
-             cputsxy(x,y,".");
-        }
-    }
     cgetc();
     return 0;
 }
